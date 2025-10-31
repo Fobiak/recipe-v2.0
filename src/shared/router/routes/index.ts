@@ -1,0 +1,1 @@
+export { ROUTER_NAMES as MAIN_ROUTE_NAMES } from './main'

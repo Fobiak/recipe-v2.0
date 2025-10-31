@@ -11,8 +11,13 @@ node_modules
 .DS_Store
 dist
 dist-ssr
+auto-imports.d.ts
+components.d.ts
+.eslintrc-auto-import.json
 coverage
 *.local
+/cypress/videos/
+/cypress/screenshots/
 
 # Editor directories and files
 .vscode/*
@@ -27,10 +32,6 @@ coverage
 *.tsbuildinfo
 
 .eslintcache
-
-# Cypress
-/cypress/videos/
-/cypress/screenshots/
 
 # Vitest
 __screenshots__/
