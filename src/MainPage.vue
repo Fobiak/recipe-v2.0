@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { MainHeader } from '@/widgets/MainHeader';
 
+
 </script>
 
 <template>
