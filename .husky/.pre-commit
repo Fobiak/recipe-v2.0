@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# === Запуск pre-commit хуков ===
+echo "Запуск pre-commit"
+
+# === ESLint с автофиксами ===
+echo "Проверка и автоисправление ESLint..."
+npm run lint:fix
+if [ $? -ne 0 ]; then
+  echo "Ошибки ESLint! Коммит отменён."
+  exit 1
+fi
+
+# Добавляем исправленные файлы в индекс
+git add .
+
+# === Проверка TypeScript ===
+echo "Проверка TypeScript..."
+npm run type-check
+if [ $? -ne 0 ]; then
+  echo "Ошибки TypeScript! Коммит отменён."
+  exit 1
+fi
+
+echo "Всё чисто! Готовимся к коммиту..."
+
+exit 0
