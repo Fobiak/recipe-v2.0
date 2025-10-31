@@ -14,8 +14,9 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint \"src/**/*.{js,ts,vue}\"",
     "lint:fix": "eslint \"src/**/*.{js,ts,vue}\" --fix",
+    "lint-staged": "lint-staged",
     "format": "prettier --write src/",
-    "prepare": "husky install",
+    "prepare": "husky",
     "fix:husky": "sed -i 's/\\r$//' .husky/pre-commit && chmod +x .husky/pre-commit"
   },
   "dependencies": {

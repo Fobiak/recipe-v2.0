@@ -1,5 +1,3 @@
-#!/bin/sh
-
 # === Запуск pre-commit хуков ===
 echo "Запуск pre-commit"
 
