@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import type { RecipeCardData } from '../types/recipe-card'
 import { Food, PieChart, StarFilled, Timer } from '@element-plus/icons-vue'
+import { RECIPES_ROUTE_NAMES } from '@/shared/router/routes'
 
 const props = defineProps<{
   recipe: RecipeCardData
 }>()
 
 const recipe = toRef(props, 'recipe')
+
+const router = useRouter()
+
+function handleGoDetailPage() {
+  router.push({ name: RECIPES_ROUTE_NAMES.RECIPE_DETAIL, params: { id: recipe.value.id } })
+}
 </script>
 
 <template>
@@ -14,6 +21,7 @@ const recipe = toRef(props, 'recipe')
     shadow="hover"
     class="w-[300px] h-[430px] flex flex-col justify-between cursor-pointer"
     :body-style="{ padding: '0px' }"
+    @click="handleGoDetailPage"
   >
     <img
       :src="recipe.image"

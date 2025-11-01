@@ -7,7 +7,7 @@ import { mockRecipes } from '@/features/recipe/mock/mock-recipe'
 <template>
   <div class="size-full">
     <ElScrollbar>
-      <div class="grid grid-cols-4 gap-5 my-5">
+      <div class="grid grid-cols-4 gap-5 m-5">
         <RecipeCard
           v-for="recipe in mockRecipes"
           :key="recipe.id"

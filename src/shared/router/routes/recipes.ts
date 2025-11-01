@@ -2,5 +2,5 @@ export const ROUTER_NAMES = {
   MAIN: 'RecipesMain',
 
   ALL_RECIPES: 'AllRecipes',
-  RECIPE: 'Recipe',
+  RECIPE_DETAIL: 'RecipeDetail',
 }

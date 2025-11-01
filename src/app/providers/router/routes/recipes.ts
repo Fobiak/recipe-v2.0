@@ -14,6 +14,11 @@ export const RECIPE_ROUTES: RouteRecordRaw[] = [
         name: RECIPES_ROUTE_NAMES.ALL_RECIPES,
         component: () => import('@/pages/Recipes/ui/RecipesPage.vue'),
       },
+      {
+        path: '/recipes/recipe-detail/:id',
+        name: RECIPES_ROUTE_NAMES.RECIPE_DETAIL,
+        component: () => import('@/pages/RecipesDetail/ui/RecipesDetailPage.vue'),
+      },
     ],
   },
 ]
