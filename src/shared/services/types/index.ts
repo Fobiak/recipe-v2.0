@@ -7,8 +7,8 @@ export interface Request {
 }
 
 export interface PaginatedResponse<T> {
-  count: number
-  page: number
-  total_pages: number
+  offset: number
+  number: number
+  totalResults: number
   results: T[]
 }

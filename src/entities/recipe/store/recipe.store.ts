@@ -6,7 +6,8 @@ export const useRecipeStore = defineStore('recipe-store', () => {
   const isLoading = ref(false)
   const page = ref(1)
   const pageSize = ref(10)
-  const recipes = ref<RecipeData[] | null>(null)
+  const totalResults = ref(0)
+  const recipes = ref<RecipeData[]>([])
 
   const recipeData = ref<RecipeData>({
     id: 0,
@@ -30,6 +31,7 @@ export const useRecipeStore = defineStore('recipe-store', () => {
         throw new Error('Не удалось получить рецепты')
 
       recipes.value = data.results
+      totalResults.value = data.totalResults
     }
     catch (e: unknown) {
       error.value = e
@@ -54,9 +56,13 @@ export const useRecipeStore = defineStore('recipe-store', () => {
   }
 
   return {
+    isLoading,
     recipes,
     recipeData,
     getRecipes,
     resetData,
+    totalResults,
+    page,
+    pageSize,
   }
 })
