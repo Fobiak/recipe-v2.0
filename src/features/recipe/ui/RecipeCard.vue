@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RecipeCardData } from '../types/recipe-card'
 import { Food, PieChart, StarFilled, Timer } from '@element-plus/icons-vue'
+import { getCalories } from '@/shared/lib/getCalories'
 import { RECIPES_ROUTE_NAMES } from '@/shared/router/routes'
 
 const props = defineProps<{
@@ -37,7 +38,7 @@ function handleGoDetailPage() {
           >
             <PieChart />
           </ElIcon>
-          {{ recipe.calories }} ккал
+          {{ getCalories(recipe.summary) }} ккал
         </span>
         <span class="flex items-center gap-1">
           <ElIcon
@@ -45,7 +46,7 @@ function handleGoDetailPage() {
           >
             <Timer />
           </ElIcon>
-          {{ recipe.readyInMinutes }}
+          {{ recipe.readyInMinutes }} мин
         </span>
       </div>
 
@@ -54,7 +55,7 @@ function handleGoDetailPage() {
       </h2>
       <div class="flex flex-wrap gap-1 mt-2 text-sm text-gray-500">
         <span
-          v-for="type in recipe.dishTypes.slice(0, 6)"
+          v-for="type in recipe.dishTypes?.slice(0, 6)"
           :key="String(type)"
           class="bg-gray-200 px-2 py-1 rounded-md"
         >

@@ -1,7 +1,13 @@
 <script setup lang="ts">
-import { ElScrollbar } from 'element-plus'
+import { useRecipeStore } from '@/entities/recipe'
 import { RecipeCard } from '@/features/recipe'
-import { mockRecipes } from '@/features/recipe/mock/mock-recipe'
+
+const recipeStore = useRecipeStore()
+const { recipes } = storeToRefs(recipeStore)
+
+onMounted(() => {
+  recipeStore.getRecipes()
+})
 </script>
 
 <template>
@@ -9,7 +15,7 @@ import { mockRecipes } from '@/features/recipe/mock/mock-recipe'
     <ElScrollbar>
       <div class="grid grid-cols-4 gap-5 m-5">
         <RecipeCard
-          v-for="recipe in mockRecipes"
+          v-for="recipe in recipes"
           :key="recipe.id"
           :recipe="recipe"
         />
