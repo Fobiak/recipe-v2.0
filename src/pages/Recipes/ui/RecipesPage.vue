@@ -3,7 +3,7 @@ import { useRecipeStore } from '@/entities/recipe'
 import { RecipeCard } from '@/features/recipe'
 
 const recipeStore = useRecipeStore()
-const { recipes, page, pageSize, totalResults, isLoading } = storeToRefs(recipeStore)
+const { recipes, formFilters, totalResults, isLoading } = storeToRefs(recipeStore)
 
 const hasRecipes = computed(() => recipes.value?.length > 0)
 
@@ -11,7 +11,7 @@ onMounted(() => {
   recipeStore.getRecipes()
 })
 
-watch(page, async () => {
+watch(() => formFilters.value.page, async () => {
   await recipeStore.getRecipes()
 })
 </script>
@@ -34,8 +34,8 @@ watch(page, async () => {
         class="flex justify-center mb-2"
       >
         <ElPagination
-          v-model:current-page="page"
-          :page-size="pageSize"
+          v-model:current-page="formFilters.page"
+          :page-size="formFilters.pageSize"
           :total="totalResults"
           layout="prev, pager, next"
         />

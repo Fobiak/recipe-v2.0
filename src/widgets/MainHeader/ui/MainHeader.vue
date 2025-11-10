@@ -1,8 +1,25 @@
 <script setup lang="ts">
+import { useDebounceFn } from '@vueuse/core'
+import { useRecipeStore } from '@/entities/recipe'
 import RecipeMainIcon from '@/shared/icons/RecipeMainIcon.vue'
 import { RECIPES_ROUTE_NAMES } from '@/shared/router/routes'
 
 const router = useRouter()
+
+const recipeStore = useRecipeStore()
+const { formFilters } = storeToRefs(recipeStore)
+
+const debounceFetch = useDebounceFn(() => {
+  recipeStore.getRecipes()
+}, 500)
+
+watch(
+  () => formFilters.value.search,
+  () => {
+    formFilters.value.page = 1
+    debounceFetch()
+  },
+)
 
 function handlePushMainPage() {
   router.push({ name: RECIPES_ROUTE_NAMES.ALL_RECIPES })
@@ -29,10 +46,12 @@ function handlePushMainPage() {
     </div>
     <div>
       <ElInput
+        :model-value="formFilters.search"
         size="large"
         class="!w-[500px]"
         placeholder="Поиск по рецептам"
         clearable
+        @update:model-value="val => formFilters.search = val"
       />
     </div>
   </div>
