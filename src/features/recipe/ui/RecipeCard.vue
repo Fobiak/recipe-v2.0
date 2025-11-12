@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RecipeCardData } from '../types/recipe-card'
 import { Food, PieChart, StarFilled, Timer } from '@element-plus/icons-vue'
+import { convertMinute } from '@/shared/lib/convertMinute'
 import { getCalories } from '@/shared/lib/getCalories'
 import { RECIPES_ROUTE_NAMES } from '@/shared/router/routes'
 
@@ -27,7 +28,7 @@ function handleGoDetailPage() {
     <img
       :src="recipe.image"
       :alt="recipe.title"
-      class="w-full h-[180px] object-cover"
+      class="w-full h-[180px]"
     >
 
     <div class="p-4 flex flex-col flex-grow">
@@ -46,7 +47,7 @@ function handleGoDetailPage() {
           >
             <Timer />
           </ElIcon>
-          {{ recipe.readyInMinutes }} мин
+          {{ convertMinute(recipe.readyInMinutes) }}
         </span>
       </div>
 

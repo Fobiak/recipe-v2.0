@@ -1,4 +1,5 @@
-import type { RecipeData } from '../types/recipe-data.types'
+import type { RecipeItem } from '../types/recipe-data.types'
+import type { RecipeCardData } from '@/features/recipe/types/recipe-card'
 import { recipeService } from '../api/recipe.service'
 
 interface FormFilters {
@@ -18,19 +19,8 @@ export const useRecipeStore = defineStore('recipe-store', () => {
   const isLoading = ref(false)
   const formFilters = ref(structuredClone(DEFAULT_FORM_FILTERS))
   const totalResults = ref(0)
-  const recipes = ref<RecipeData[]>([])
-
-  const recipeData = ref<RecipeData>({
-    id: 0,
-    image: '',
-    title: '',
-    readyInMinutes: '',
-    servings: null,
-    aggregateLikes: null,
-    dishTypes: [],
-    summary: '',
-    analyzedInstructions: [],
-  })
+  const recipes = ref<RecipeCardData[]>([])
+  const recipe = ref<RecipeItem>()
 
   async function getRecipes() {
     isLoading.value = true
@@ -52,17 +42,22 @@ export const useRecipeStore = defineStore('recipe-store', () => {
     }
   }
 
-  function resetData() {
-    recipeData.value = {
-      id: 0,
-      image: '',
-      title: '',
-      readyInMinutes: '',
-      servings: null,
-      aggregateLikes: null,
-      dishTypes: [],
-      summary: '',
-      analyzedInstructions: [],
+  async function getRecipeById(id: number | null) {
+    isLoading.value = true
+    error.value = null
+    try {
+      const { data } = await recipeService.getRecipeId(id)
+
+      if (!data)
+        throw new Error('Не удалось получить детальную информацию о рецепте')
+
+      recipe.value = data
+    }
+    catch (e: unknown) {
+      error.value = e
+    }
+    finally {
+      isLoading.value = false
     }
   }
 
@@ -73,11 +68,11 @@ export const useRecipeStore = defineStore('recipe-store', () => {
   return {
     isLoading,
     recipes,
-    recipeData,
+    recipe,
     getRecipes,
-    resetData,
     totalResults,
     formFilters,
     resetFilters,
+    getRecipeById,
   }
 })
