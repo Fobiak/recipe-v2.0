@@ -15,11 +15,19 @@ export const recipeService = {
     })
   },
 
-  async getRecipeId(id: number | null) {
+  async getRecipeById(id: number | null) {
     return await makeRequest<RecipeItem>({
       method: 'GET',
       url: `${VITE_API_BASE_URL}/recipes/${id}/information`,
       params: { apiKey: VITE_API_KEY },
+    })
+  },
+
+  async getRecipeSimilar(id: number | null) {
+    return await makeRequest<RecipeItem[]>({
+      method: 'GET',
+      url: `${VITE_API_BASE_URL}/recipes/${id}/similar`,
+      params: { apiKey: VITE_API_KEY, number: 3 },
     })
   },
 }

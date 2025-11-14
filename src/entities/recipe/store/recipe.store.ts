@@ -21,6 +21,7 @@ export const useRecipeStore = defineStore('recipe-store', () => {
   const totalResults = ref(0)
   const recipes = ref<RecipeCardData[]>([])
   const recipe = ref<RecipeItem | null>(null)
+  const recipeSimilar = ref<RecipeItem[]>([])
 
   async function getRecipes() {
     isLoading.value = true
@@ -46,12 +47,31 @@ export const useRecipeStore = defineStore('recipe-store', () => {
     isLoading.value = true
     error.value = null
     try {
-      const { data } = await recipeService.getRecipeId(id)
+      const { data } = await recipeService.getRecipeById(id)
 
       if (!data)
         throw new Error('Не удалось получить детальную информацию о рецепте')
 
       recipe.value = data
+    }
+    catch (e: unknown) {
+      error.value = e
+    }
+    finally {
+      isLoading.value = false
+    }
+  }
+
+  async function getRecipeSimilarById(id: number | null) {
+    isLoading.value = true
+    error.value = null
+    try {
+      const { data } = await recipeService.getRecipeSimilar(id)
+
+      if (!data)
+        throw new Error('Не удалось получить похожие рецепты')
+
+      recipeSimilar.value = data
     }
     catch (e: unknown) {
       error.value = e
@@ -69,10 +89,12 @@ export const useRecipeStore = defineStore('recipe-store', () => {
     isLoading,
     recipes,
     recipe,
+    recipeSimilar,
     getRecipes,
     totalResults,
     formFilters,
     resetFilters,
     getRecipeById,
+    getRecipeSimilarById,
   }
 })

@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useRecipeStore } from '@/entities/recipe'
+import { RecipeCard } from '@/features/recipe'
 import { convertMinute } from '@/shared/lib/convertMinute'
 import { RecipeTags } from '@/shared/ui/RecipeTags'
 
 const recipeStore = useRecipeStore()
-const { isLoading, recipe } = storeToRefs(recipeStore)
+const { isLoading, recipe, recipeSimilar } = storeToRefs(recipeStore)
 
 const route = useRoute()
 const recipeId = computed(() => {
@@ -37,6 +38,7 @@ function handleNextStep() {
 
 onMounted(async () => {
   await recipeStore.getRecipeById(recipeId.value)
+  await recipeStore.getRecipeSimilarById(recipeId.value)
 })
 
 // добавить сброс recipe
@@ -138,6 +140,12 @@ onMounted(async () => {
           </div>
         </div>
       </div>
+      <RecipeCard
+        v-for="recipeSim in recipeSimilar"
+        :key="recipeSim.id"
+        :recipe="recipeSim"
+        view-type="similar"
+      />
     </div>
   </ElScrollbar>
 </template>

@@ -7,6 +7,7 @@ import { RECIPES_ROUTE_NAMES } from '@/shared/router/routes'
 
 const props = defineProps<{
   recipe: RecipeCardData
+  viewType: 'basic' | 'similar'
 }>()
 
 const recipe = toRef(props, 'recipe')

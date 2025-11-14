@@ -27,6 +27,7 @@ watch(() => formFilters.value.page, async () => {
           v-for="recipe in recipes"
           :key="recipe.id"
           :recipe="recipe"
+          view-type="basic"
         />
       </div>
       <div
