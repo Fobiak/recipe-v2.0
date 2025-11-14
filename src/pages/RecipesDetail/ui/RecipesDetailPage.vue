@@ -52,12 +52,12 @@ onMounted(async () => {
   >
     <div
       v-if="recipe"
-      class="flex flex-col gap-5 m-5"
+      class="flex flex-col items-center gap-5 m-5"
     >
-      <div class="flex flex-col items-center gap-5">
+      <div class="flex flex-col gap-5 max-w-[700px] bg-green-50 rounded-xl p-3 shadow-sm">
         <img
           :src="recipe.image"
-          class="max-w-[700px] rounded-lg"
+          class="rounded-lg"
         >
         <div class="flex flex-col gap-3">
           <div class="flex flex-col justify-center max-w-[700px]">
@@ -86,44 +86,10 @@ onMounted(async () => {
               </div>
             </template>
           </div>
-        </div>
-      </div>
-
-      <div class="flex flex-row items-start justify-between">
-        <div
-          v-if="steps.length"
-          class="flex flex-col gap-2 w-[500px]"
-        >
-          <h1 class="text-xl">
-            Инструкция к приготовлению
-          </h1>
-
-          <ElSteps
-            :active="activeStep"
-            finish-status="success"
-            direction="vertical"
-          >
-            <ElStep
-              v-for="(step, index) in steps"
-              :key="index"
-              :title="`Шаг ${step.number}`"
-              :description="step.step"
-            />
-          </ElSteps>
-
-          <ElButton
-            type="primary"
-            class="w-[200px]"
-            @click="handleNextStep"
-          >
-            Следующий шаг
-          </ElButton>
-        </div>
-        <div class="w-[500px]">
-          <h2 class="text-xl font-semibold mb-2">
-            Ингредиенты
-          </h2>
-          <ElScrollbar max-height="500">
+          <div>
+            <h2 class="text-xl font-semibold mb-2">
+              Ингредиенты
+            </h2>
             <ul class="flex flex-col gap-2">
               <li
                 v-for="ingredient in recipe.extendedIngredients"
@@ -140,7 +106,36 @@ onMounted(async () => {
                 </div>
               </li>
             </ul>
-          </ElScrollbar>
+          </div>
+          <div
+            v-if="steps.length"
+            class="flex flex-col gap-2 w-[500px]"
+          >
+            <h1 class="text-xl">
+              Инструкция к приготовлению
+            </h1>
+
+            <ElSteps
+              :active="activeStep"
+              finish-status="success"
+              direction="vertical"
+            >
+              <ElStep
+                v-for="(step, index) in steps"
+                :key="index"
+                :title="`Шаг ${step.number}`"
+                :description="step.step"
+              />
+            </ElSteps>
+
+            <ElButton
+              type="primary"
+              class="w-[200px]"
+              @click="handleNextStep"
+            >
+              Следующий шаг
+            </ElButton>
+          </div>
         </div>
       </div>
     </div>
