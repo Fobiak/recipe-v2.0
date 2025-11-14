@@ -9,7 +9,7 @@ const props = defineProps<{
 
 <template>
   <div class="flex flex-row gap-2">
-    <div
+    <template
       v-for="tag in TAGS"
       :key="tag.key"
     >
@@ -21,6 +21,6 @@ const props = defineProps<{
       >
         {{ tag.label }}
       </ElTag>
-    </div>
+    </template>
   </div>
 </template>

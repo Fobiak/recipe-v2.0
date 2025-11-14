@@ -20,7 +20,7 @@ export const useRecipeStore = defineStore('recipe-store', () => {
   const formFilters = ref(structuredClone(DEFAULT_FORM_FILTERS))
   const totalResults = ref(0)
   const recipes = ref<RecipeCardData[]>([])
-  const recipe = ref<RecipeItem>()
+  const recipe = ref<RecipeItem | null>(null)
 
   async function getRecipes() {
     isLoading.value = true

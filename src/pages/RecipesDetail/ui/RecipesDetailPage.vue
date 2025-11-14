@@ -18,6 +18,14 @@ const steps = computed(() => {
   return recipe.value?.analyzedInstructions?.flatMap(i => i.steps) ?? []
 })
 
+const info = [
+  { label: 'Время приготовления', value: convertMinute(recipe.value?.readyInMinutes) },
+  { label: 'Полезность', value: recipe.value?.healthScore },
+  { label: 'Цена за порцию', value: recipe.value?.pricePerServing.toFixed(2) },
+  { label: 'Порций', value: recipe.value?.servings },
+  { label: 'WW Points', value: recipe.value?.weightWatcherSmartPoints },
+]
+
 function handleNextStep() {
   if (activeStep.value < steps.value.length - 1) {
     activeStep.value++
@@ -46,40 +54,37 @@ onMounted(async () => {
       v-if="recipe"
       class="flex flex-col gap-5 m-5"
     >
-      <div class="flex flex-row justify-between gap-5">
+      <div class="flex flex-col items-center gap-5">
         <img
           :src="recipe.image"
-          class="w-full rounded-lg"
+          class="max-w-[700px] rounded-lg"
         >
         <div class="flex flex-col gap-3">
-          <div class="flex flex-col">
+          <div class="flex flex-col justify-center max-w-[700px]">
             <h1 class="text-2xl font-bold">
               {{ recipe.title }}
             </h1>
             <RecipeTags :recipe="recipe" />
-            <ElScrollbar max-height="350">
-              <p v-html="recipe.summary" />
-            </ElScrollbar>
+            <p v-html="recipe.summary" />
           </div>
-          <div class="flex gap-6 text-gray-700">
-            <div>
-              <span class="font-semibold">
-                Подготовка:
-              </span>
-              {{ convertMinute(recipe.readyInMinutes) }}
-            </div>
-            <div>
-              <span class="font-semibold">
-                Готовка:
-              </span>
-              {{ convertMinute(recipe.cookingMinutes) }}
-            </div>
-            <div>
-              <span class="font-semibold">
-                Всего:
-              </span>
-              {{ convertMinute(recipe.readyInMinutes) }}
-            </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <template
+              v-for="item in info"
+              :key="item.label"
+            >
+              <div
+                v-if="item.value"
+                class="flex flex-col items-center justify-center bg-green-50 rounded-xl p-3 shadow-sm"
+              >
+                <p class="text-xl font-semibold text-green-700">
+                  {{ item.value }}
+                </p>
+                <p class="text-sm text-gray-500">
+                  {{ item.label }}
+                </p>
+              </div>
+            </template>
           </div>
         </div>
       </div>

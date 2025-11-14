@@ -32,7 +32,7 @@ function handleGoDetailPage() {
     >
 
     <div class="p-4 flex flex-col flex-grow">
-      <div class="flex justify-between text-gray-800 text-sm ">
+      <div class="flex justify-between text-gray-800 text-sm">
         <span class="flex items-center gap-1">
           <ElIcon
             :size="20"

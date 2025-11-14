@@ -16,4 +16,7 @@ export interface RecipeCardData {
   veryPopular: boolean
   sustainable: boolean
   lowFodmap: boolean
+  healthScore: number
+  pricePerServing: number
+  weightWatcherSmartPoints: number
 }
