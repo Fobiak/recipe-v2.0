@@ -17,6 +17,11 @@ watch(
   () => formFilters.value.search,
   () => {
     formFilters.value.page = 1
+
+    if (router.currentRoute.value.name !== RECIPES_ROUTE_NAMES.ALL_RECIPES) {
+      router.push({ name: RECIPES_ROUTE_NAMES.ALL_RECIPES })
+    }
+
     debounceFetch()
   },
 )
