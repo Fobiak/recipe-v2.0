@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Filter } from '@element-plus/icons-vue'
 import { useDebounceFn } from '@vueuse/core'
 import { useRecipeStore } from '@/entities/recipe'
 import RecipeMainIcon from '@/shared/icons/RecipeMainIcon.vue'
@@ -32,7 +33,7 @@ function handlePushMainPage() {
 </script>
 
 <template>
-  <div class="flex h-[68px] w-full flex-row items-center justify-start gap-10 border-b border-gray-300 bg-white px-10">
+  <div class="flex h-[68px] w-full flex-row items-center justify-start gap-3 border-b border-gray-300 bg-white px-10">
     <div
       class="flex cursor-pointer flex-row items-center gap-4"
       @click="handlePushMainPage"
@@ -59,5 +60,48 @@ function handlePushMainPage() {
         @update:model-value="val => formFilters.search = val"
       />
     </div>
+    <ElPopover
+      key="popover"
+      placement="bottom-start"
+      width="632px"
+      :teleported="false"
+    >
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+          <h2 class="font-medium">
+            Фильтры
+          </h2>
+          <ElIcon
+            size="16"
+            class="cursor-pointer"
+          >
+            <Close />
+          </ElIcon>
+        </div>
+
+        <div class="flex justify-end gap-3">
+          <ElButton
+            text
+          >
+            Сбросить все
+          </ElButton>
+          <ElButton
+            type="primary"
+          >
+            Применить
+          </ElButton>
+        </div>
+      </div>
+      <template #reference>
+        <ElButton
+          class="w-[40px]"
+          size="large"
+        >
+          <ElIcon :size="16">
+            <Filter />
+          </ElIcon>
+        </ElButton>
+      </template>
+    </ElPopover>
   </div>
 </template>
