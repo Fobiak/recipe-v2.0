@@ -46,10 +46,9 @@ watch(
   { immediate: true },
 )
 
-// добавить сброс recipe
-// onUnmounted(() => {
-
-// })
+onUnmounted(() => {
+  recipeStore.resetData()
+})
 </script>
 
 <template>
@@ -62,19 +61,20 @@ watch(
       class="flex gap-5 m-5 items-start"
     >
       <div class="flex flex-1 flex-col gap-5 bg-green-50 rounded-xl p-3 shadow-sm">
-        <img
-          :src="recipe.image"
-          class="rounded-lg"
-        >
-        <div class="flex flex-col gap-3">
-          <div class="flex flex-col justify-center max-w-[700px]">
+        <div class="flex gap-3">
+          <img
+            :src="recipe.image"
+            class="rounded-lg"
+          >
+          <div class="flex flex-col gap-2">
             <h1 class="text-2xl font-bold">
               {{ recipe.title }}
             </h1>
             <RecipeTags :recipe="recipe" />
             <p v-html="recipe.summary" />
           </div>
-
+        </div>
+        <div class="flex flex-col gap-3">
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <template
               v-for="item in info"

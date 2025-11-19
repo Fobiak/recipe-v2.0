@@ -86,6 +86,11 @@ export const useRecipeStore = defineStore('recipe-store', () => {
     formFilters.value = structuredClone(DEFAULT_FORM_FILTERS)
   }
 
+  function resetData() {
+    recipe.value = null
+    recipeSimilar.value = []
+  }
+
   return {
     isLoading,
     recipes,
@@ -97,5 +102,6 @@ export const useRecipeStore = defineStore('recipe-store', () => {
     resetFilters,
     getRecipeById,
     getRecipeSimilarById,
+    resetData,
   }
 })
