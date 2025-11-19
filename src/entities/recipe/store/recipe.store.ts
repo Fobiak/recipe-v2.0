@@ -1,5 +1,6 @@
 import type { RecipeItem } from '../types/recipe-data.types'
 import type { RecipeCardData } from '@/features/recipe/types/recipe-card'
+import type { RecipeSimilarCardData } from '@/features/recipe/types/recipe-similar-card'
 import { recipeService } from '../api/recipe.service'
 
 interface FormFilters {
@@ -21,7 +22,7 @@ export const useRecipeStore = defineStore('recipe-store', () => {
   const totalResults = ref(0)
   const recipes = ref<RecipeCardData[]>([])
   const recipe = ref<RecipeItem | null>(null)
-  const recipeSimilar = ref<RecipeItem[]>([])
+  const recipeSimilar = ref<RecipeSimilarCardData[]>([])
 
   async function getRecipes() {
     isLoading.value = true

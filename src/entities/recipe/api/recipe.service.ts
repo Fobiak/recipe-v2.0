@@ -1,5 +1,6 @@
 import type { RecipeItem } from '../types/recipe-data.types'
 import type { RecipeCardData } from '@/features/recipe/types/recipe-card'
+import type { RecipeSimilarCardData } from '@/features/recipe/types/recipe-similar-card'
 import type { PaginatedResponse } from '@/shared/services/types'
 import makeRequest from '@/shared/services/api/http'
 
@@ -24,10 +25,10 @@ export const recipeService = {
   },
 
   async getRecipeSimilar(id: number | null) {
-    return await makeRequest<RecipeItem[]>({
+    return await makeRequest<RecipeSimilarCardData[]>({
       method: 'GET',
       url: `${VITE_API_BASE_URL}/recipes/${id}/similar`,
-      params: { apiKey: VITE_API_KEY, number: 3 },
+      params: { apiKey: VITE_API_KEY, number: 10 },
     })
   },
 }

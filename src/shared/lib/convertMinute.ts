@@ -6,7 +6,7 @@
  *
  */
 export function convertMinute(minute?: number): string | null {
-  if (!minute || minute >= 0)
+  if (!minute || minute < 0)
     return null
   const hours = Math.floor(minute / 60)
   const minutes = minute % 60

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useRecipeStore } from '@/entities/recipe'
-import { RecipeCard } from '@/features/recipe'
+import { RecipeSimilarCard } from '@/features/recipe'
 import { convertMinute } from '@/shared/lib/convertMinute'
 import { RecipeTags } from '@/shared/ui/RecipeTags'
 
@@ -36,10 +36,15 @@ function handleNextStep() {
   }
 }
 
-onMounted(async () => {
-  await recipeStore.getRecipeById(recipeId.value)
-  await recipeStore.getRecipeSimilarById(recipeId.value)
-})
+watch(
+  () => recipeId.value,
+  async (newId) => {
+    await recipeStore.getRecipeById(newId)
+    await recipeStore.getRecipeSimilarById(newId)
+    activeStep.value = 0
+  },
+  { immediate: true },
+)
 
 // добавить сброс recipe
 // onUnmounted(() => {
@@ -50,13 +55,23 @@ onMounted(async () => {
 <template>
   <ElScrollbar
     v-loading="isLoading"
-    class="h-full"
+    class="size-full"
   >
     <div
       v-if="recipe"
-      class="flex flex-col items-center gap-5 m-5"
+      class="flex gap-5 m-5 justify-center items-start"
     >
-      <div class="flex flex-col gap-5 max-w-[700px] bg-green-50 rounded-xl p-3 shadow-sm">
+      <div class="flex flex-1 flex-col w-[350px] gap-3 bg-green-50 rounded-xl p-5">
+        <span class="text-xl">
+          Похожие рецепты
+        </span>
+        <RecipeSimilarCard
+          v-for="similar in recipeSimilar"
+          :key="similar.id"
+          :similar-recipe="similar"
+        />
+      </div>
+      <div class="flex shrink-0 flex-col gap-5 max-w-[700px] bg-green-50 rounded-xl p-3 shadow-sm">
         <img
           :src="recipe.image"
           class="rounded-lg"
@@ -113,9 +128,9 @@ onMounted(async () => {
             v-if="steps.length"
             class="flex flex-col gap-2 w-[500px]"
           >
-            <h1 class="text-xl">
+            <span class="text-xl">
               Инструкция к приготовлению
-            </h1>
+            </span>
 
             <ElSteps
               :active="activeStep"
@@ -140,12 +155,16 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-      <RecipeCard
-        v-for="recipeSim in recipeSimilar"
-        :key="recipeSim.id"
-        :recipe="recipeSim"
-        view-type="similar"
-      />
+      <div class="flex flex-1 flex-col w-[350px] gap-3 bg-green-50 rounded-xl p-5">
+        <span class="text-xl">
+          Похожие рецепты
+        </span>
+        <RecipeSimilarCard
+          v-for="similar in recipeSimilar"
+          :key="similar.id"
+          :similar-recipe="similar"
+        />
+      </div>
     </div>
   </ElScrollbar>
 </template>
