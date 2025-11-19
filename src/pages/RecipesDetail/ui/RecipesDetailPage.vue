@@ -59,19 +59,9 @@ watch(
   >
     <div
       v-if="recipe"
-      class="flex gap-5 m-5 justify-center items-start"
+      class="flex gap-5 m-5 items-start"
     >
-      <div class="flex flex-1 flex-col w-[350px] gap-3 bg-green-50 rounded-xl p-5">
-        <span class="text-xl">
-          Похожие рецепты
-        </span>
-        <RecipeSimilarCard
-          v-for="similar in recipeSimilar"
-          :key="similar.id"
-          :similar-recipe="similar"
-        />
-      </div>
-      <div class="flex shrink-0 flex-col gap-5 max-w-[700px] bg-green-50 rounded-xl p-3 shadow-sm">
+      <div class="flex flex-1 flex-col gap-5 bg-green-50 rounded-xl p-3 shadow-sm">
         <img
           :src="recipe.image"
           class="rounded-lg"
@@ -155,7 +145,7 @@ watch(
           </div>
         </div>
       </div>
-      <div class="flex flex-1 flex-col w-[350px] gap-3 bg-green-50 rounded-xl p-5">
+      <div class="flex shrink-0 flex-col w-[500px] gap-3 bg-green-50 rounded-xl p-5">
         <span class="text-xl">
           Похожие рецепты
         </span>
