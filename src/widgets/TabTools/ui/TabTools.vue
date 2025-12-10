@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import type { FormFilters } from '@/entities/recipe/types/recipe-data.types'
-import { Filter } from '@element-plus/icons-vue'
+import { Close, Filter } from '@element-plus/icons-vue'
+import { onClickOutside } from '@vueuse/core'
 import { useRecipeStore } from '@/entities/recipe'
 import { RECIPES_ROUTE_NAMES } from '@/shared/router/routes'
 import { SearchInput } from '@/shared/ui/SearchInput'
 import { cuisines, diets, intolerances, types } from '../config/constant'
 
 const router = useRouter()
-
 const recipeStore = useRecipeStore()
 const { updateFilters } = recipeStore
 
 const visible = ref(false)
+const popoverRef = ref()
 const searchInput = ref('')
 const selectedCuisines = ref<string[]>([])
 const selectedDiets = ref<string[]>([])
@@ -31,6 +32,18 @@ const INIT_FORM_DATA: Partial<FormFilters> = ({
 
 const applyFilters = ref<Partial<FormFilters>>({
   ...INIT_FORM_DATA,
+})
+
+const isMainPage = computed(() => router.currentRoute.value.name === RECIPES_ROUTE_NAMES.ALL_RECIPES)
+
+onClickOutside(popoverRef, (event) => {
+  const isSelectElement = (event.target as Element).closest?.('.el-select')
+    || (event.target as Element).closest?.('.el-input')
+    || (event.target as Element).closest?.('.el-popper')
+
+  if (!isSelectElement) {
+    visible.value = false
+  }
 })
 
 function toggleFilters() {
@@ -64,12 +77,15 @@ function onResetFilters() {
 }
 
 async function handleInput() {
-  recipeStore.updateFilters({ page: 1 })
-  if (router.currentRoute.value.name !== RECIPES_ROUTE_NAMES.ALL_RECIPES) {
+  if (isMainPage.value) {
     router.push({ name: RECIPES_ROUTE_NAMES.ALL_RECIPES })
   }
-  recipeStore.updateFilters({ query: searchInput.value })
+  recipeStore.updateFilters({ page: 1, query: searchInput.value })
 }
+
+onUnmounted(() => {
+  onResetFilters()
+})
 </script>
 
 <template>
@@ -81,6 +97,8 @@ async function handleInput() {
     />
   </div>
   <ElPopover
+    v-if="isMainPage"
+    ref="popoverRef"
     key="popover"
     placement="bottom-start"
     :visible="visible"
@@ -110,6 +128,7 @@ async function handleInput() {
             v-model="selectedCuisines"
             :options="cuisines"
             multiple
+            placeholder="Выберите тип кухни"
           />
         </ElFormItem>
         <ElFormItem
@@ -120,6 +139,7 @@ async function handleInput() {
             v-model="selectedDiets"
             :options="diets"
             multiple
+            placeholder="Выберите тип диеты"
           />
         </ElFormItem>
         <ElFormItem
@@ -130,6 +150,7 @@ async function handleInput() {
             v-model="selectedTypes"
             :options="types"
             multiple
+            placeholder="Выберите тип блюда"
           />
         </ElFormItem>
         <ElFormItem
@@ -140,6 +161,7 @@ async function handleInput() {
             v-model="selectedIntolerances"
             :options="intolerances"
             multiple
+            placeholder="Выберите, если есть аллергия"
           />
         </ElFormItem>
         <ElFormItem
