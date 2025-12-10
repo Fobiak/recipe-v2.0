@@ -44,3 +44,16 @@ export enum Consistency {
   Liquid = 'LIQUID',
   Solid = 'SOLID',
 }
+
+export interface FormFilters {
+  page: number
+  pageSize: number
+  query?: string | null
+  cuisine?: string[] | null
+  diet?: string[] | null
+  type?: string[] | null
+  includeIngredients?: string | null
+  excludeIngredients?: string | null
+  sort?: string | null
+  sortDirection?: string | null
+}

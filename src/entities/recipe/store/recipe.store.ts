@@ -1,18 +1,19 @@
-import type { RecipeItem } from '../types/recipe-data.types'
+import type { FormFilters, RecipeItem } from '../types/recipe-data.types'
 import type { RecipeCardData } from '@/features/recipe/types/recipe-card'
 import type { RecipeSimilarCardData } from '@/features/recipe/types/recipe-similar-card'
 import { recipeService } from '../api/recipe.service'
 
-interface FormFilters {
-  page: number
-  pageSize: number
-  search?: string
-}
-
 const DEFAULT_FORM_FILTERS: FormFilters = {
   page: 1,
   pageSize: 18,
-  search: '',
+  query: '',
+  cuisine: null,
+  diet: null,
+  type: null,
+  includeIngredients: null,
+  excludeIngredients: null,
+  sort: null,
+  sortDirection: null,
 }
 
 export const useRecipeStore = defineStore('recipe-store', () => {
@@ -28,7 +29,7 @@ export const useRecipeStore = defineStore('recipe-store', () => {
     isLoading.value = true
     error.value = null
     try {
-      const { data } = await recipeService.getRecipe(formFilters.value.page, formFilters.value.pageSize, formFilters.value.search)
+      const { data } = await recipeService.getRecipe(formFilters.value)
 
       if (!data)
         throw new Error('Не удалось получить рецепты')
@@ -82,6 +83,13 @@ export const useRecipeStore = defineStore('recipe-store', () => {
     }
   }
 
+  function updateFilters(payload: Partial<FormFilters>) {
+    formFilters.value = {
+      ...formFilters.value,
+      ...payload,
+    }
+  }
+
   function resetFilters() {
     formFilters.value = structuredClone(DEFAULT_FORM_FILTERS)
   }
@@ -99,6 +107,7 @@ export const useRecipeStore = defineStore('recipe-store', () => {
     getRecipes,
     totalResults,
     formFilters,
+    updateFilters,
     resetFilters,
     getRecipeById,
     getRecipeSimilarById,
