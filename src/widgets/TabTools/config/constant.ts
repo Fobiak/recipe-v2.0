@@ -72,3 +72,10 @@ export const intolerances = ref([
   { value: 'Tree Nut', label: 'Орехи' },
   { value: 'Wheat', label: 'Пшеница' },
 ])
+
+export const sortChoice = [
+  { value: 'popularity', label: 'Популярное' },
+  { value: 'time', label: 'По времени' },
+  { value: 'calories', label: 'По калориям' },
+  { value: 'random', label: 'Случайно' },
+]
