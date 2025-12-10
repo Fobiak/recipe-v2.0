@@ -31,7 +31,7 @@ function handleGoDetailPage() {
       class="w-full h-[180px]"
     >
 
-    <div class="p-4 flex flex-col flex-grow">
+    <div class="p-4 flex flex-col min-h-[160px]">
       <div class="flex justify-between text-gray-800 text-sm">
         <span class="flex items-center gap-1">
           <ElIcon
@@ -66,7 +66,7 @@ function handleGoDetailPage() {
     </div>
 
     <template #footer>
-      <div class="flex justify-between items-center px-4 py-2">
+      <div class="flex justify-between items-center px-4">
         <div class="flex flex-col text-sm">
           <span class="flex gap-1 p-1">
             <ElIcon :size="20">

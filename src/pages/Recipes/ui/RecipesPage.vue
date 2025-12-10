@@ -22,7 +22,7 @@ watch(() => formFilters.value.page, async () => {
     class="flex flex-col h-full"
   >
     <ElScrollbar>
-      <div class="grid grid-cols-4 gap-5 m-5">
+      <div class="grid grid-cols-6 gap-3 m-5">
         <RecipeCard
           v-for="recipe in recipes"
           :key="recipe.id"

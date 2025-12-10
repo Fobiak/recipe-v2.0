@@ -11,7 +11,7 @@ interface FormFilters {
 
 const DEFAULT_FORM_FILTERS: FormFilters = {
   page: 1,
-  pageSize: 10,
+  pageSize: 18,
   search: '',
 }
 
