@@ -88,10 +88,12 @@ export const useRecipeStore = defineStore('recipe-store', () => {
       ...formFilters.value,
       ...payload,
     }
+    getRecipes()
   }
 
   function resetFilters() {
     formFilters.value = structuredClone(DEFAULT_FORM_FILTERS)
+    getRecipes()
   }
 
   function resetData() {

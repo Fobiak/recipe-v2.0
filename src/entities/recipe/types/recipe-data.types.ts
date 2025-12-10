@@ -49,9 +49,10 @@ export interface FormFilters {
   page: number
   pageSize: number
   query?: string | null
-  cuisine?: string[] | null
-  diet?: string[] | null
-  type?: string[] | null
+  cuisine?: string | null
+  diet?: string | null
+  type?: string | null
+  intolerances?: string | null
   includeIngredients?: string | null
   excludeIngredients?: string | null
   sort?: string | null

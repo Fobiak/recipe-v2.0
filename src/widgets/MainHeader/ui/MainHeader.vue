@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import RecipeMainIcon from '@/shared/icons/RecipeMainIcon.vue'
 import { RECIPES_ROUTE_NAMES } from '@/shared/router/routes'
-import TabTools from '@/shared/ui/TabTools.vue'
+import TabTools from '@/widgets/TabTools/ui/TabTools.vue'
 
 const router = useRouter()
 
