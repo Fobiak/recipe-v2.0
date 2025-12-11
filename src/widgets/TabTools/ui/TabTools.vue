@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FormFilters } from '@/entities/recipe/types/recipe-data.types'
-import { Close, Filter } from '@element-plus/icons-vue'
+import { CaretBottom, CaretTop, Close, Filter } from '@element-plus/icons-vue'
 import { onClickOutside } from '@vueuse/core'
 import { useRecipeStore } from '@/entities/recipe'
 import { RECIPES_ROUTE_NAMES } from '@/shared/router/routes'
@@ -21,6 +21,7 @@ const selectedIntolerances = ref<string[]>([])
 const includeIngredients = ref<string | null>(null)
 const excludeIngredients = ref<string | null>(null)
 const sort = ref<string | null>(null)
+const sortDirection = ref<'asc' | 'desc' | null>(null)
 
 const INIT_FORM_DATA: Partial<FormFilters> = ({
   cuisine: null,
@@ -30,6 +31,7 @@ const INIT_FORM_DATA: Partial<FormFilters> = ({
   includeIngredients: null,
   excludeIngredients: null,
   sort: null,
+  sortDirection: null,
 })
 
 const applyFilters = ref<Partial<FormFilters>>({
@@ -37,6 +39,8 @@ const applyFilters = ref<Partial<FormFilters>>({
 })
 
 const isMainPage = computed(() => router.currentRoute.value.name === RECIPES_ROUTE_NAMES.ALL_RECIPES)
+const isAvailableSort = computed(() => sort.value !== null || sort.value !== 'noSort')
+const caretIcon = computed(() => sortDirection.value === 'asc' ? CaretBottom : CaretTop)
 
 onClickOutside(popoverRef, (event) => {
   const isSelectElement = (event.target as Element).closest?.('.el-select')
@@ -47,6 +51,14 @@ onClickOutside(popoverRef, (event) => {
     visible.value = false
   }
 })
+
+function toggleSort() {
+  sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'
+
+  recipeStore.updateFilters({
+    sortDirection: sortDirection.value,
+  })
+}
 
 function toggleFilters() {
   visible.value = !visible.value
@@ -87,8 +99,16 @@ async function handleInput() {
 }
 
 async function handleSelectSort() {
+  if (sort.value === 'noSort') {
+    recipeStore.updateFilters({ sort: null })
+    return
+  }
   recipeStore.updateFilters({ sort: sort.value })
 }
+
+watch(sort, () => {
+  sortDirection.value = null
+})
 
 onUnmounted(() => {
   onResetFilters()
@@ -218,14 +238,25 @@ onUnmounted(() => {
         </template>
       </ElPopover>
     </div>
-    <ElSelect
-      v-if="isMainPage"
-      v-model="sort"
-      :options="sortChoice"
-      size="large"
-      placeholder="Сортировка"
-      class="w-[200px]"
-      @change="handleSelectSort"
-    />
+    <div class="flex gap-4">
+      <ElSelect
+        v-if="isMainPage"
+        v-model="sort"
+        :options="sortChoice"
+        size="large"
+        placeholder="Сортировка"
+        class="w-[200px]"
+        @change="handleSelectSort"
+      />
+      <ElButton
+        v-if="isAvailableSort"
+        size="large"
+        @click="toggleSort"
+      >
+        <ElIcon>
+          <component :is="caretIcon" />
+        </ElIcon>
+      </ElButton>
+    </div>
   </div>
 </template>

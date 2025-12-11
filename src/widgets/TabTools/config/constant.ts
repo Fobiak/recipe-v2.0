@@ -78,4 +78,5 @@ export const sortChoice = [
   { value: 'time', label: 'По времени' },
   { value: 'calories', label: 'По калориям' },
   { value: 'random', label: 'Случайно' },
+  { value: 'noSort', label: 'Без сортировки' },
 ]

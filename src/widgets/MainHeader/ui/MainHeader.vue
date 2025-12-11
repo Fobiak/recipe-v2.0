@@ -19,7 +19,7 @@ function handlePushMainPage() {
       <ElIcon size="40">
         <RecipeMainIcon />
       </ElIcon>
-      <div>
+      <div class="flex flex-col min-w-[200px]">
         <p class="text-3xl font-bold">
           Все рецепты
         </p>
