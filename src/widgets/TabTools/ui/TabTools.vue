@@ -39,7 +39,7 @@ const applyFilters = ref<Partial<FormFilters>>({
 })
 
 const isMainPage = computed(() => router.currentRoute.value.name === RECIPES_ROUTE_NAMES.ALL_RECIPES)
-const isAvailableSort = computed(() => sort.value !== null || sort.value !== 'noSort')
+const isAvailableSort = computed(() => sort.value !== null && sort.value !== 'noSort')
 const caretIcon = computed(() => sortDirection.value === 'asc' ? CaretBottom : CaretTop)
 
 onClickOutside(popoverRef, (event) => {
