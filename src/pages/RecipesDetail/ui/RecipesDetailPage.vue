@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Food, Star, Timer, Wallet } from '@element-plus/icons-vue'
 import { useRoute } from 'vue-router'
 import { useRecipeStore } from '@/entities/recipe'
 import { RecipeSimilarCard } from '@/features/recipe'
@@ -20,11 +21,10 @@ const steps = computed(() => {
 })
 
 const info = computed(() => [
-  { label: 'Время приготовления', value: convertMinute(recipe.value?.readyInMinutes) },
-  { label: 'Полезность', value: recipe.value?.healthScore },
-  { label: 'Цена за порцию', value: recipe.value?.pricePerServing.toFixed(2) },
-  { label: 'Порций', value: recipe.value?.servings },
-  { label: 'WW Points', value: recipe.value?.weightWatcherSmartPoints },
+  { label: 'Время приготовления', icon: Timer, value: convertMinute(recipe.value?.readyInMinutes) },
+  { label: 'Полезность', icon: Star, value: recipe.value?.healthScore },
+  { label: 'Цена за порцию', icon: Wallet, value: `${recipe.value?.pricePerServing?.toFixed(2)}$` },
+  { label: 'Порций', icon: Food, value: recipe.value?.servings },
 ])
 
 function handleNextStep() {
@@ -60,12 +60,32 @@ onUnmounted(() => {
       v-if="recipe"
       class="flex gap-5 m-5 items-start"
     >
-      <div class="flex flex-1 flex-col gap-5 bg-green-50 rounded-xl p-3 shadow-sm">
+      <div class="flex flex-1 flex-col gap-5 bg-white rounded-2xl p-6 shadow-sm border">
         <div class="flex gap-3">
-          <img
-            :src="recipe.image"
-            class="rounded-lg"
-          >
+          <div class="flex flex-col min-w-[400px] gap-2">
+            <img
+              :src="recipe.image"
+              class="rounded-2xl w-full h-[300px] object-cover shadow-md"
+            >
+            <div class="flex justify-between items-center gap-4 w-full">
+              <template
+                v-for="item in info"
+                :key="item.label"
+              >
+                <div
+                  v-if="item.value"
+                  class="flex items-center gap-1"
+                >
+                  <ElIcon>
+                    <component
+                      :is="item.icon"
+                    />
+                  </ElIcon>
+                  <span>{{ item.value }}</span>
+                </div>
+              </template>
+            </div>
+          </div>
           <div class="flex flex-col gap-2">
             <h1 class="text-2xl font-bold">
               {{ recipe.title }}
@@ -75,24 +95,6 @@ onUnmounted(() => {
           </div>
         </div>
         <div class="flex flex-col gap-3">
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <template
-              v-for="item in info"
-              :key="item.label"
-            >
-              <div
-                v-if="item.value"
-                class="flex flex-col items-center justify-center bg-green-50 rounded-xl p-3 shadow-sm"
-              >
-                <p class="text-xl font-semibold text-green-700">
-                  {{ item.value }}
-                </p>
-                <p class="text-sm text-gray-500">
-                  {{ item.label }}
-                </p>
-              </div>
-            </template>
-          </div>
           <div>
             <h2 class="text-xl font-semibold mb-2">
               Ингредиенты
@@ -137,7 +139,7 @@ onUnmounted(() => {
 
             <ElButton
               type="primary"
-              class="w-[200px]"
+              class="w-[200px] flex justify-center"
               @click="handleNextStep"
             >
               Следующий шаг
@@ -145,7 +147,7 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
-      <div class="flex shrink-0 flex-col w-[500px] gap-3 bg-green-50 rounded-xl p-5">
+      <div class="flex shrink-0 flex-col w-[500px] gap-3 bg-white rounded-xl p-5 shadow-sm border">
         <span class="text-xl">
           Похожие рецепты
         </span>

@@ -18,5 +18,4 @@ export interface RecipeCardData {
   lowFodmap: boolean
   healthScore: number
   pricePerServing: number
-  weightWatcherSmartPoints: number
 }

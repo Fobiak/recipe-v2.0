@@ -1,3 +1,4 @@
+/* eslint-env node */
 import antfu from '@antfu/eslint-config'
 import { FlatCompat } from '@eslint/eslintrc'
 
@@ -20,14 +21,6 @@ export default antfu({
     extends: ['plugin:tailwindcss/recommended'],
     rules: {
       'vue/html-indent': ['error', 2],
-      'prettier/prettier': [
-      'error',
-      {
-        tabWidth: 2,
-        singleQuote: true,
-        semi: false,
-      },
-    ],
       // Порядок атрибутов
       'vue/attributes-order': ['error', {
         order: [
@@ -45,6 +38,7 @@ export default antfu({
         ],
         alphabetical: false,
       }],
+      'tailwindcss/classnames-order': ['error'],
       'tailwindcss/no-custom-classname': 'off',
       'tailwindcss/migration-from-tailwind-2': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
