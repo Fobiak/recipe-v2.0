@@ -19,13 +19,13 @@ const steps = computed(() => {
   return recipe.value?.analyzedInstructions?.flatMap(i => i.steps) ?? []
 })
 
-const info = [
+const info = computed(() => [
   { label: 'Время приготовления', value: convertMinute(recipe.value?.readyInMinutes) },
   { label: 'Полезность', value: recipe.value?.healthScore },
   { label: 'Цена за порцию', value: recipe.value?.pricePerServing.toFixed(2) },
   { label: 'Порций', value: recipe.value?.servings },
   { label: 'WW Points', value: recipe.value?.weightWatcherSmartPoints },
-]
+])
 
 function handleNextStep() {
   if (activeStep.value < steps.value.length - 1) {
