@@ -36,15 +36,14 @@ function handleNextStep() {
   }
 }
 
-watch(
-  () => recipeId.value,
-  async (newId) => {
-    await recipeStore.getRecipeById(newId)
-    await recipeStore.getRecipeSimilarById(newId)
-    activeStep.value = 0
-  },
-  { immediate: true },
-)
+async function handleLoadRecipe(recipeId: number | null) {
+  await recipeStore.getRecipeById(recipeId)
+  await recipeStore.getRecipeSimilarById(recipeId)
+}
+
+onMounted(() => {
+  handleLoadRecipe(recipeId.value)
+})
 
 onUnmounted(() => {
   recipeStore.resetData()
@@ -58,6 +57,7 @@ onUnmounted(() => {
   >
     <div
       v-if="recipe"
+      :key="recipe.id"
       class="flex gap-5 m-5 items-start"
     >
       <div class="flex flex-1 flex-col gap-5 bg-white rounded-2xl p-6 shadow-sm border">
@@ -155,6 +155,7 @@ onUnmounted(() => {
           v-for="similar in recipeSimilar"
           :key="similar.id"
           :similar-recipe="similar"
+          @click-similar="handleLoadRecipe"
         />
       </div>
     </div>

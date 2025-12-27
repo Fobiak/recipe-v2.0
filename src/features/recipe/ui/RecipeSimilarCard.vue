@@ -8,12 +8,16 @@ const props = defineProps<{
   similarRecipe: RecipeSimilarCardData
 }>()
 
-const similarRecipe = toRef(props, 'similarRecipe')
+const emits = defineEmits<{
+  clickSimilar: [id: number]
+}>()
 
+const similarRecipe = toRef(props, 'similarRecipe')
 const router = useRouter()
 
 function handleGoDetailPage() {
   router.push({ name: RECIPES_ROUTE_NAMES.RECIPE_DETAIL, params: { id: similarRecipe.value.id } })
+  emits('clickSimilar', similarRecipe.value.id)
 }
 
 const imageUrl = computed(() => {

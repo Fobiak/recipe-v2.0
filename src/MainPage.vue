@@ -4,7 +4,7 @@ import { MainFooter } from './widgets/MainFooter'
 </script>
 
 <template>
-  <div class="grid min-h-screen grid-rows-[68px_1fr_52px] bg-fill_extralight">
+  <div class="grid size-full grid-rows-[68px_1fr_52px] bg-fill_extralight">
     <MainHeader />
     <div class="overflow-hidden">
       <div class="flex size-full bg-bg_base">
