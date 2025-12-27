@@ -5,8 +5,6 @@ import { RecipeCard } from '@/features/recipe'
 const recipeStore = useRecipeStore()
 const { recipes, formFilters, totalResults, isLoading } = storeToRefs(recipeStore)
 
-const hasRecipes = computed(() => recipes.value?.length > 0)
-
 onMounted(() => {
   recipeStore.getRecipes()
 })
@@ -31,7 +29,7 @@ watch(() => formFilters.value.page, async () => {
         />
       </div>
       <div
-        v-if="hasRecipes"
+        v-if="recipes.length"
         class="flex justify-center mb-2"
       >
         <ElPagination
