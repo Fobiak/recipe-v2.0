@@ -12,7 +12,7 @@ interface AnalyzedInstructionsItem {
   steps: StepsItem[]
 }
 
-interface StepsItem {
+export interface StepsItem {
   number: number
   step: string
   ingridients: []
@@ -26,7 +26,7 @@ interface EquipmentItem {
   image: string
 }
 
-interface ExtendedIngredient {
+export interface ExtendedIngredient {
   id: number
   aisle: null | string
   image: string
@@ -57,4 +57,10 @@ export interface FormFilters {
   excludeIngredients?: string | null
   sort?: string | null
   sortDirection?: string | null
+}
+
+export interface RecipeInfoItem {
+  label: string
+  icon: Component
+  value: string | number | null
 }
