@@ -1,12 +1,20 @@
 <script setup lang="ts">
+import { Star, StarFilled } from '@element-plus/icons-vue'
 import RecipeMainIcon from '@/shared/icons/RecipeMainIcon.vue'
 import { RECIPES_ROUTE_NAMES } from '@/shared/router/routes'
 import TabTools from '@/widgets/TabTools/ui/TabTools.vue'
 
 const router = useRouter()
+const route = useRoute()
+
+const isFavoritesPage = computed(() => route.name === RECIPES_ROUTE_NAMES.FAVORITE_RECIPES)
 
 function handlePushMainPage() {
   router.push({ name: RECIPES_ROUTE_NAMES.ALL_RECIPES })
+}
+
+function handlePushFavorites() {
+  router.push({ name: RECIPES_ROUTE_NAMES.FAVORITE_RECIPES })
 }
 </script>
 
@@ -28,6 +36,17 @@ function handlePushMainPage() {
         </p>
       </div>
     </div>
+
     <TabTools />
+
+    <ElButton
+      circle
+      size="large"
+      @click="handlePushFavorites"
+    >
+      <ElIcon size="20">
+        <component :is="isFavoritesPage ? StarFilled : Star" />
+      </ElIcon>
+    </ElButton>
   </div>
 </template>

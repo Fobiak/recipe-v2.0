@@ -3,4 +3,5 @@ export const ROUTER_NAMES = {
 
   ALL_RECIPES: 'AllRecipes',
   RECIPE_DETAIL: 'RecipeDetail',
+  FAVORITE_RECIPES: 'FavoriteRecipes',
 }

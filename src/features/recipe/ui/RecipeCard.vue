@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RecipeCardData } from '../types/recipe-card'
-import { Food, PieChart, StarFilled, Timer } from '@element-plus/icons-vue'
+import { Food, PieChart, Star, StarFilled, Timer } from '@element-plus/icons-vue'
+import { useFavoriteStore } from '@/entities/FavoriteRecipe'
 import { convertMinute } from '@/shared/lib/convertMinute'
 import { getCalories } from '@/shared/lib/getCalories'
 import { RECIPES_ROUTE_NAMES } from '@/shared/router/routes'
@@ -10,8 +11,17 @@ const props = defineProps<{
 }>()
 
 const recipe = toRef(props, 'recipe')
+const favoriteStore = useFavoriteStore()
 
 const router = useRouter()
+
+const isFavorite = computed(() =>
+  favoriteStore.isFavoriteRecipe(props.recipe.id),
+)
+
+function toggleFavorite() {
+  favoriteStore.toggleFavorite(props.recipe)
+}
 
 function handleGoDetailPage() {
   router.push({ name: RECIPES_ROUTE_NAMES.RECIPE_DETAIL, params: { id: recipe.value.id } })
@@ -82,10 +92,12 @@ function handleGoDetailPage() {
           </span>
         </div>
         <ElButton
-          class="flex items-center"
-          round
+          link
+          @click.stop="toggleFavorite"
         >
-          Перейти
+          <ElIcon size="20">
+            <component :is="isFavorite ? StarFilled : Star" />
+          </ElIcon>
         </ElButton>
       </div>
     </template>
