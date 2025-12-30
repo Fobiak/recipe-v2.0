@@ -116,7 +116,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="flex justify-between w-full">
+  <div class="flex gap-4 justify-between w-full">
     <div class="flex gap-4">
       <SearchInput
         v-model="searchInput"
