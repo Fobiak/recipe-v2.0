@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRecipeStore } from '@/entities/recipe'
 import { RecipeCard } from '@/features/recipe'
+import { BaseListRecipe } from '@/shared/ui/BaseListRecipe'
 
 const recipeStore = useRecipeStore()
 const { recipes, formFilters, totalResults, isLoading } = storeToRefs(recipeStore)
@@ -20,13 +21,13 @@ watch(() => formFilters.value.page, async () => {
     class="flex flex-col h-full"
   >
     <ElScrollbar>
-      <div class="grid grid-cols-6 gap-3 m-5">
+      <BaseListRecipe>
         <RecipeCard
           v-for="recipe in recipes"
           :key="recipe.id"
           :recipe="recipe"
         />
-      </div>
+      </BaseListRecipe>
       <div
         v-if="recipes.length"
         class="flex justify-center mb-2"

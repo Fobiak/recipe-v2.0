@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useFavoriteStore } from '@/entities/FavoriteRecipe'
 import { RecipeCard } from '@/features/recipe'
+import { BaseListRecipe } from '@/shared/ui/BaseListRecipe'
 
 const favoriteStore = useFavoriteStore()
 const { favoriteRecipes } = storeToRefs(favoriteStore)
@@ -9,15 +10,13 @@ const { favoriteRecipes } = storeToRefs(favoriteStore)
 <template>
   <div class="flex flex-col h-full">
     <ElScrollbar v-if="favoriteRecipes.length">
-      <div
-        class="grid grid-cols-6 gap-3 m-5"
-      >
+      <BaseListRecipe>
         <RecipeCard
           v-for="recipe in favoriteRecipes"
           :key="recipe.id"
           :recipe="recipe"
         />
-      </div>
+      </BaseListRecipe>
     </ElScrollbar>
     <div
       v-else
