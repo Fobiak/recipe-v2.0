@@ -20,12 +20,16 @@ function handlePushFavorites() {
   router.push({ name: RECIPES_ROUTE_NAMES.FAVORITE_RECIPES })
 }
 
-const isDark = useDark({ valueDark: 'dark', valueLight: 'light' })
+const isDark = useDark()
 const toggleDark = useToggle(isDark)
+
+function handleToggleTheme() {
+  toggleDark()
+}
 </script>
 
 <template>
-  <div class="flex h-[68px] w-full items-center justify-start gap-3 border-b border-gray-300 bg-white dark:bg-gray-900 px-10 transition-colors duration-300">
+  <div class="flex h-[68px] w-full items-center justify-start gap-3 border-b border-gray-300 bg-white dark:bg-gray-900 dark:border-gray-900 px-10 transition-colors duration-300">
     <div
       class="flex cursor-pointer items-center gap-4"
       @click="handlePushMainPage"
@@ -58,7 +62,7 @@ const toggleDark = useToggle(isDark)
     <ElButton
       circle
       size="large"
-      @click="() => toggleDark()"
+      @click="handleToggleTheme"
     >
       <ElIcon size="20">
         <component :is="isDark ? Sunny : Moon" />

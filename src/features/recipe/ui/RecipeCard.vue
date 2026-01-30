@@ -31,7 +31,7 @@ function handleGoDetailPage() {
 <template>
   <ElCard
     shadow="hover"
-    class="w-[300px] h-[430px] flex flex-col justify-between cursor-pointer"
+    class="w-[300px] h-[430px] flex flex-col justify-between cursor-pointer dark:bg-cyan-200"
     :body-style="{ padding: '0px' }"
     @click="handleGoDetailPage"
   >
