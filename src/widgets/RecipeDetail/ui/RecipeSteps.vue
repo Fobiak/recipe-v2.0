@@ -20,7 +20,7 @@ function handleNextStep() {
 <template>
   <div
     v-if="steps.length"
-    class="flex flex-col gap-2 w-full"
+    class="flex flex-col gap-2 w-full text-text-primary"
   >
     <span class="text-xl">
       Инструкция к приготовлению

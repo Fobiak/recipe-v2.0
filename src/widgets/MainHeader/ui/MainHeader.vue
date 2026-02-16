@@ -29,7 +29,7 @@ function handleToggleTheme() {
 </script>
 
 <template>
-  <div class="flex h-[68px] w-full items-center justify-start gap-3 border-b border-gray-300 bg-white dark:bg-gray-900 dark:border-gray-900 px-10 transition-colors duration-300">
+  <div class="flex h-[68px] w-full items-center justify-start gap-3 border-b border-border bg-bg-header px-10 transition-colors duration-300 rounded-lg">
     <div
       class="flex cursor-pointer items-center gap-4"
       @click="handlePushMainPage"
@@ -38,10 +38,10 @@ function handleToggleTheme() {
         <RecipeMainIcon />
       </ElIcon>
       <div class="flex flex-col min-w-[200px]">
-        <p class="text-3xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">
+        <p class="text-3xl font-bold text-text-primary transition-colors duration-300">
           Все рецепты
         </p>
-        <p class="text-xs text-slate-400 dark:text-slate-300 transition-colors duration-300">
+        <p class="text-xs text-text-secondary transition-colors duration-300">
           Еда — это искусство, а ты художник
         </p>
       </div>
@@ -49,24 +49,26 @@ function handleToggleTheme() {
 
     <TabTools />
 
-    <ElButton
-      circle
-      size="large"
-      @click="handlePushFavorites"
-    >
-      <ElIcon size="20">
-        <component :is="isFavoritesPage ? StarFilled : Star" />
-      </ElIcon>
-    </ElButton>
+    <div class="flex gap">
+      <ElButton
+        circle
+        size="large"
+        @click="handlePushFavorites"
+      >
+        <ElIcon size="20">
+          <component :is="isFavoritesPage ? StarFilled : Star" />
+        </ElIcon>
+      </ElButton>
 
-    <ElButton
-      circle
-      size="large"
-      @click="handleToggleTheme"
-    >
-      <ElIcon size="20">
-        <component :is="isDark ? Sunny : Moon" />
-      </ElIcon>
-    </ElButton>
+      <ElButton
+        circle
+        size="large"
+        @click="handleToggleTheme"
+      >
+        <ElIcon size="20">
+          <component :is="isDark ? Sunny : Moon" />
+        </ElIcon>
+      </ElButton>
+    </div>
   </div>
 </template>

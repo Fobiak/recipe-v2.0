@@ -27,7 +27,7 @@ const imageUrl = computed(() => {
 
 <template>
   <div
-    class="flex gap-4 p-3 rounded-xl bg-white shadow hover:shadow-md transition cursor-pointer"
+    class="flex gap-4 p-3 rounded-xl bg-bg-hover shadow hover:shadow-md transition cursor-pointer border"
     @click="handleGoDetailPage"
   >
     <img
@@ -35,8 +35,7 @@ const imageUrl = computed(() => {
       :alt="similarRecipe.title"
       class="w-32 h-24 rounded-lg"
     >
-
-    <div class="flex flex-col justify-between">
+    <div class="flex flex-col justify-between text-text-primary">
       <span class="font-semibold text-base line-clamp-2">
         {{ similarRecipe.title }}
       </span>

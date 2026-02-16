@@ -7,12 +7,12 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="flex items-center gap-3 p-2 border rounded-lg shadow-sm bg-white">
-    <div>
+  <div class="flex items-center gap-3 p-2 border rounded-lg shadow-sm bg-bg-hover">
+    <div class="flex flex-col text-text-primary">
       <p class="font-medium">
         {{ props.ingredient.name }}
       </p>
-      <p class="text-sm text-gray-500">
+      <p class="text-sm">
         {{ props.ingredient.amount }} {{ props.ingredient.unit }}
       </p>
     </div>

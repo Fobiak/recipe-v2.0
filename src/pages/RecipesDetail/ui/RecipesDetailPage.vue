@@ -37,13 +37,13 @@ onUnmounted(() => {
       :key="recipe.id"
       class="flex gap-5 m-5 items-start"
     >
-      <div class="flex flex-1 flex-col gap-5 bg-white rounded-2xl p-6 shadow-sm border">
+      <div class="flex flex-1 flex-col gap-5 bg-bg-card rounded-2xl p-6 shadow-sm border">
         <RecipeDetailHeader
           :recipe="recipe"
         />
         <div class="flex flex-col gap-3">
           <div>
-            <h2 class="text-xl font-semibold mb-2">
+            <h2 class="text-xl font-semibold mb-2 text-text-primary">
               Ингредиенты
             </h2>
             <div class="flex flex-col gap-2">
@@ -60,8 +60,8 @@ onUnmounted(() => {
           />
         </div>
       </div>
-      <div class="flex shrink-0 flex-col w-[500px] gap-3 bg-white rounded-xl p-5 shadow-sm border">
-        <span class="text-xl">
+      <div class="flex shrink-0 flex-col w-[500px] gap-3 bg-bg-card rounded-xl p-5 shadow-sm border">
+        <span class="text-xl text-text-primary">
           Похожие рецепты
         </span>
         <RecipeSimilarCard

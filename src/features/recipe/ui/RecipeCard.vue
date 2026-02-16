@@ -31,7 +31,7 @@ function handleGoDetailPage() {
 <template>
   <ElCard
     shadow="hover"
-    class="w-[300px] h-[430px] flex flex-col justify-between cursor-pointer dark:bg-cyan-200"
+    class="w-[300px] h-[430px] flex flex-col justify-between cursor-pointer !bg-bg-card"
     :body-style="{ padding: '0px' }"
     @click="handleGoDetailPage"
   >
@@ -42,33 +42,33 @@ function handleGoDetailPage() {
     >
 
     <div class="p-4 flex flex-col min-h-[160px]">
-      <div class="flex justify-between text-gray-800 text-sm">
-        <span class="flex items-center gap-1">
+      <div class="flex justify-between text-text-primary text-sm">
+        <div class="flex items-center gap-1">
           <ElIcon
             :size="20"
           >
             <PieChart />
           </ElIcon>
           {{ getCalories(recipe.summary) }} ккал
-        </span>
-        <span class="flex items-center gap-1">
+        </div>
+        <div class="flex items-center gap-1">
           <ElIcon
             :size="20"
           >
             <Timer />
           </ElIcon>
           {{ convertMinute(recipe.readyInMinutes) }}
-        </span>
+        </div>
       </div>
 
-      <h2 class="text-lg font-bold truncate mt-2">
+      <h2 class="text-lg font-bold truncate mt-2 text-text-primary">
         {{ recipe.title }}
       </h2>
-      <div class="flex flex-wrap gap-1 mt-2 text-sm text-gray-500">
+      <div class="flex flex-wrap gap-1 mt-2 text-sm text-text-secondary">
         <span
           v-for="type in recipe.dishTypes?.slice(0, 6)"
           :key="String(type)"
-          class="bg-gray-200 px-2 py-1 rounded-md"
+          class="bg-bg-hover px-2 py-1 rounded-md"
         >
           {{ type }}
         </span>
@@ -77,7 +77,7 @@ function handleGoDetailPage() {
 
     <template #footer>
       <div class="flex justify-between items-center px-4">
-        <div class="flex flex-col text-sm">
+        <div class="flex flex-col text-sm text-text-primary">
           <span class="flex gap-1 p-1">
             <ElIcon :size="20">
               <Food />
@@ -93,10 +93,12 @@ function handleGoDetailPage() {
         </div>
         <ElButton
           link
+          class="text-text-primary"
           @click.stop="toggleFavorite"
         >
           <ElIcon size="20">
-            <component :is="isFavorite ? StarFilled : Star" />
+            <StarFilled v-if="isFavorite" />
+            <Star v-else />
           </ElIcon>
         </ElButton>
       </div>

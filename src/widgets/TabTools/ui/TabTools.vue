@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FormFilters } from '@/entities/recipe/types/recipe-data.types'
-import { CaretBottom, CaretTop, Close, Filter } from '@element-plus/icons-vue'
+import { Close, Filter, SortDown, SortUp } from '@element-plus/icons-vue'
 import { onClickOutside } from '@vueuse/core'
 import { useRecipeStore } from '@/entities/recipe'
 import { RECIPES_ROUTE_NAMES } from '@/shared/router/routes'
@@ -40,7 +40,7 @@ const applyFilters = ref<Partial<FormFilters>>({
 
 const isMainPage = computed(() => router.currentRoute.value.name === RECIPES_ROUTE_NAMES.ALL_RECIPES)
 const isAvailableSort = computed(() => sort.value !== null && sort.value !== 'noSort')
-const caretIcon = computed(() => sortDirection.value === 'asc' ? CaretBottom : CaretTop)
+const caretIcon = computed(() => sortDirection.value === 'asc' ? SortDown : SortUp)
 
 onClickOutside(popoverRef, (event) => {
   const isSelectElement = (event.target as Element).closest?.('.el-select')
@@ -99,16 +99,14 @@ async function handleInput() {
 }
 
 async function handleSelectSort() {
+  sortDirection.value = null
+
   if (sort.value === 'noSort') {
     recipeStore.updateFilters({ sort: null })
     return
   }
   recipeStore.updateFilters({ sort: sort.value })
 }
-
-watch(sort, () => {
-  sortDirection.value = null
-})
 
 onUnmounted(() => {
   onResetFilters()
@@ -238,7 +236,7 @@ onUnmounted(() => {
         </template>
       </ElPopover>
     </div>
-    <div class="flex gap-4">
+    <div class="flex items-center">
       <ElSelect
         v-if="isMainPage"
         v-model="sort"
@@ -246,11 +244,12 @@ onUnmounted(() => {
         size="large"
         placeholder="Сортировка"
         class="w-[200px]"
+        :class="{ 'no-right-radius': isAvailableSort }"
         @change="handleSelectSort"
       />
       <ElButton
-        v-if="isAvailableSort"
-        size="large"
+        v-if="isMainPage && isAvailableSort"
+        class="size-10 !rounded-l-none"
         @click="toggleSort"
       >
         <ElIcon>
@@ -260,3 +259,10 @@ onUnmounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+:deep(.no-right-radius .el-select__wrapper) {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+</style>

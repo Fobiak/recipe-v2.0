@@ -1,5 +1,35 @@
-@import './style.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
-  background-color: #F0F1F2;
+:root {
+  --bg-main: #F8F7F4;
+  --bg-header: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-hover: #F1F0EC;
+
+  --text-primary: #1F2933;
+  --text-secondary: #4B5563;
+  --text-muted: #9CA3AF;
+
+  --accent: #6B8E6E;
+  --accent-soft: #E4ECE5;
+
+  --border: #E3E1DC;
+}
+
+.dark {
+  --bg-main: #1C1F1D;
+  --bg-header: #232724;
+  --bg-card: #2A2E2B;
+  --bg-hover: #333834;
+
+  --text-primary: #E7E5DF;
+  --text-secondary: #B9B7AF;
+  --text-muted: #8B8F88;
+
+  --accent: #8FB59A;
+  --accent-soft: #2F3A33;
+
+  --border: #3A403C;
 }

@@ -23,7 +23,7 @@ const info: RecipeInfoItem[] = [
         :src="props.recipe.image"
         class="rounded-2xl w-full h-[300px] object-cover shadow-md"
       >
-      <div class="flex justify-between items-center gap-4 w-full">
+      <div class="flex justify-between items-center gap-4 w-full text-text-primary">
         <template
           v-for="item in info"
           :key="item.label"
@@ -40,7 +40,7 @@ const info: RecipeInfoItem[] = [
         </template>
       </div>
     </div>
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 text-text-primary">
       <h1 class="text-2xl font-bold">
         {{ props.recipe.title }}
       </h1>

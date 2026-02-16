@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white shadow-sm w-full p-4 rounded-lg border-t border-gray-300 dark:bg-gray-900 dark:border-gray-900 px-5">
-    <div class="flex flex-row justify-between text-sm text-gray-500 mx-20">
+  <div class="shadow-sm w-full p-4 rounded-lg border-t border-border bg-bg-header px-5">
+    <div class="flex flex-row justify-between text-sm text-text-secondary mx-20">
       <span>
         © 2025 Recipe™. All Rights Reserved.
       </span>
