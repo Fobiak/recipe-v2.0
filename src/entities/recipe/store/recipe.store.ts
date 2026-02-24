@@ -98,6 +98,7 @@ export const useRecipeStore = defineStore('recipe-store', () => {
 
   function resetData() {
     recipe.value = null
+    recipes.value = []
     recipeSimilar.value = []
   }
 

@@ -13,13 +13,13 @@ const recipeId = computed(() => {
   return id ? Number(id) : null
 })
 
-async function handleLoadRecipe(recipeId: number | null) {
-  await recipeStore.getRecipeById(recipeId)
-  await recipeStore.getRecipeSimilarById(recipeId)
+async function handleLoadRecipe() {
+  await recipeStore.getRecipeById(recipeId.value)
+  await recipeStore.getRecipeSimilarById(recipeId.value)
 }
 
 onMounted(() => {
-  handleLoadRecipe(recipeId.value)
+  handleLoadRecipe()
 })
 
 onUnmounted(() => {

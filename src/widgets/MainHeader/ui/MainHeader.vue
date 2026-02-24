@@ -26,6 +26,10 @@ const toggleDark = useToggle(isDark)
 function handleToggleTheme() {
   toggleDark()
 }
+
+function handleBackPage() {
+  router.back()
+}
 </script>
 
 <template>
@@ -48,6 +52,14 @@ function handleToggleTheme() {
     </div>
 
     <TabTools />
+
+    <ElButton
+      v-if="isFavoritesPage"
+      size="large"
+      @click="handleBackPage"
+    >
+      Назад
+    </ElButton>
 
     <div class="flex gap">
       <ElButton

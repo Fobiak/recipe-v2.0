@@ -17,6 +17,7 @@ watch(() => formFilters.value.page, async () => {
 
 <template>
   <div
+    v-if="recipes.length"
     v-loading="isLoading"
     class="flex flex-col h-full"
   >
@@ -29,7 +30,6 @@ watch(() => formFilters.value.page, async () => {
         />
       </BaseListRecipe>
       <div
-        v-if="recipes.length"
         class="flex justify-center mb-2"
       >
         <ElPagination
@@ -40,5 +40,11 @@ watch(() => formFilters.value.page, async () => {
         />
       </div>
     </ElScrollbar>
+  </div>
+  <div
+    v-else
+    class="flex items-center justify-center h-full"
+  >
+    Нет найденных рецептов
   </div>
 </template>
