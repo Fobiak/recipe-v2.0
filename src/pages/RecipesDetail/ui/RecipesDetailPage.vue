@@ -55,7 +55,7 @@ onBeforeUnmount(() => {
             <h2 class="text-xl font-semibold mb-2 text-text-primary">
               Ингредиенты
             </h2>
-            <div class="flex flex-col gap-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <RecipeIngredients
                 v-for="ingredient in recipe.extendedIngredients"
                 :key="ingredient.id"

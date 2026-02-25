@@ -11,7 +11,6 @@ const router = useRouter()
 const route = useRoute()
 
 const isFavoritesPage = computed(() => route.name === RECIPES_ROUTE_NAMES.FAVORITE_RECIPES)
-const isDetailPage = computed(() => route.name === RECIPES_ROUTE_NAMES.RECIPE_DETAIL)
 
 function handlePushMainPage() {
   router.push({ name: RECIPES_ROUTE_NAMES.ALL_RECIPES })
@@ -26,10 +25,6 @@ const toggleDark = useToggle(isDark)
 
 function handleToggleTheme() {
   toggleDark()
-}
-
-function handleBackPage() {
-  router.back()
 }
 </script>
 
@@ -53,14 +48,6 @@ function handleBackPage() {
     </div>
 
     <TabTools />
-
-    <ElButton
-      v-if="isFavoritesPage || isDetailPage"
-      size="large"
-      @click="handleBackPage"
-    >
-      Назад
-    </ElButton>
 
     <div class="flex gap">
       <ElButton
