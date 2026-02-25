@@ -2,7 +2,7 @@
   <div class="shadow-sm w-full p-4 rounded-lg border-t border-border bg-bg-header px-5">
     <div class="flex flex-row justify-between text-sm text-text-secondary mx-20">
       <span>
-        © 2025 Recipe™. All Rights Reserved.
+        © 2026 Recipe™. All Rights Reserved.
       </span>
       <div class="flex gap-2 font-medium">
         <div>

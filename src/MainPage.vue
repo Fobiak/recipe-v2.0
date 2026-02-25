@@ -4,15 +4,19 @@ import { MainFooter } from './widgets/MainFooter'
 </script>
 
 <template>
-  <div class="grid size-full grid-rows-[68px_1fr_52px] bg-bg-main">
-    <MainHeader />
-    <div class="overflow-hidden">
-      <div class="flex size-full bg-bg_base">
-        <div class="flex-grow overflow-hidden">
-          <RouterView />
-        </div>
+  <div class="size-full flex flex-col bg-bg-main">
+    <div class="flex justify-center bg-bg-main pt-2">
+      <MainHeader class="w-full max-w-7xl" />
+    </div>
+
+    <div class="flex-1 flex justify-center overflow-hidden">
+      <div class="w-full max-w-7xl bg-bg_base overflow-hidden">
+        <RouterView />
       </div>
     </div>
-    <MainFooter />
+
+    <div class="flex justify-center bg-bg-main pb-2">
+      <MainFooter class="w-full max-w-7xl" />
+    </div>
   </div>
 </template>

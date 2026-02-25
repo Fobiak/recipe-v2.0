@@ -5,7 +5,7 @@ import { recipeService } from '../api/recipe.service'
 
 const DEFAULT_FORM_FILTERS: FormFilters = {
   page: 1,
-  pageSize: 18,
+  pageSize: 20,
   query: null,
   cuisine: null,
   diet: null,

@@ -17,11 +17,10 @@ watch(() => formFilters.value.page, async () => {
 
 <template>
   <div
-    v-if="recipes.length"
     v-loading="isLoading"
-    class="flex flex-col h-full"
+    class="flex flex-col h-full items-center pt-5"
   >
-    <ElScrollbar>
+    <ElScrollbar v-if="recipes.length">
       <BaseListRecipe>
         <RecipeCard
           v-for="recipe in recipes"
@@ -29,22 +28,23 @@ watch(() => formFilters.value.page, async () => {
           :recipe="recipe"
         />
       </BaseListRecipe>
-      <div
-        class="flex justify-center mb-2"
-      >
-        <ElPagination
-          v-model:current-page="formFilters.page"
-          :page-size="formFilters.pageSize"
-          :total="totalResults"
-          layout="prev, pager, next"
-        />
-      </div>
     </ElScrollbar>
-  </div>
-  <div
-    v-else
-    class="flex items-center justify-center h-full"
-  >
-    Нет найденных рецептов
+    <div
+      v-if="recipes.length"
+      class="flex justify-center my-2"
+    >
+      <ElPagination
+        v-model:current-page="formFilters.page"
+        :page-size="formFilters.pageSize"
+        :total="totalResults"
+        layout="prev, pager, next"
+      />
+    </div>
+    <div
+      v-else-if="!isLoading"
+      class="flex items-center justify-center h-full"
+    >
+      Нет найденных рецептов
+    </div>
   </div>
 </template>

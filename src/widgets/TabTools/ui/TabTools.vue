@@ -196,6 +196,7 @@ onUnmounted(() => {
             >
               <ElInput
                 v-model="includeIngredients"
+                placeholder="Введите"
               />
             </ElFormItem>
             <ElFormItem
@@ -204,6 +205,7 @@ onUnmounted(() => {
             >
               <ElInput
                 v-model="excludeIngredients"
+                placeholder="Введите"
               />
             </ElFormItem>
           </ElForm>
