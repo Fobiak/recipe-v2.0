@@ -13,16 +13,25 @@ const recipeId = computed(() => {
   return id ? Number(id) : null
 })
 
-async function handleLoadRecipe() {
-  await recipeStore.getRecipeById(recipeId.value)
-  await recipeStore.getRecipeSimilarById(recipeId.value)
+async function loadById(id: number | null) {
+  if (!id)
+    return
+
+  await Promise.all([
+    recipeStore.getRecipeById(id),
+    recipeStore.getRecipeSimilarById(id),
+  ])
 }
 
 onMounted(() => {
-  handleLoadRecipe()
+  loadById(recipeId.value)
 })
 
-onUnmounted(() => {
+onBeforeRouteUpdate((to) => {
+  loadById(Number(to.params.id))
+})
+
+onBeforeUnmount(() => {
   recipeStore.resetData()
 })
 </script>
@@ -35,7 +44,7 @@ onUnmounted(() => {
     <div
       v-if="recipe"
       :key="recipe.id"
-      class="flex gap-5 m-5 items-start"
+      class="flex gap-3 items-start"
     >
       <div class="flex flex-1 flex-col gap-5 bg-bg-card rounded-2xl p-6 shadow-sm border">
         <RecipeDetailHeader
@@ -60,7 +69,7 @@ onUnmounted(() => {
           />
         </div>
       </div>
-      <div class="flex shrink-0 flex-col w-[500px] gap-3 bg-bg-card rounded-xl p-5 shadow-sm border">
+      <div class="flex shrink-0 flex-col max-w-[450px] gap-3 bg-bg-card rounded-xl p-5 shadow-sm border">
         <span class="text-xl text-text-primary">
           Похожие рецепты
         </span>
@@ -68,7 +77,6 @@ onUnmounted(() => {
           v-for="similar in recipeSimilar"
           :key="similar.id"
           :similar-recipe="similar"
-          @click-similar="handleLoadRecipe"
         />
       </div>
     </div>

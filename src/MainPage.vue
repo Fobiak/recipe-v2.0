@@ -10,7 +10,7 @@ import { MainFooter } from './widgets/MainFooter'
     </div>
 
     <div class="flex-1 flex justify-center overflow-hidden">
-      <div class="w-full max-w-7xl bg-bg_base overflow-hidden">
+      <div class="w-full max-w-7xl bg-bg_base overflow-hidden py-2">
         <RouterView />
       </div>
     </div>

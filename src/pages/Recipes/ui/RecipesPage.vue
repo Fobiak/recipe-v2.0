@@ -18,9 +18,9 @@ watch(() => formFilters.value.page, async () => {
 <template>
   <div
     v-loading="isLoading"
-    class="flex flex-col h-full items-center pt-5"
+    class="flex flex-col h-full items-center"
   >
-    <ElScrollbar v-if="recipes.length">
+    <ElScrollbar v-if="recipes?.length">
       <BaseListRecipe>
         <RecipeCard
           v-for="recipe in recipes"
@@ -30,7 +30,7 @@ watch(() => formFilters.value.page, async () => {
       </BaseListRecipe>
     </ElScrollbar>
     <div
-      v-if="recipes.length"
+      v-if="recipes?.length"
       class="flex justify-center my-2"
     >
       <ElPagination

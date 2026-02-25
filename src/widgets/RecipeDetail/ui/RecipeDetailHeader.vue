@@ -17,35 +17,34 @@ const info: RecipeInfoItem[] = [
 </script>
 
 <template>
-  <div class="flex gap-3">
-    <div class="flex flex-col min-w-[400px] gap-2">
-      <img
-        :src="props.recipe.image"
-        class="rounded-2xl w-full h-[300px] object-cover shadow-md"
+  <div class="flex flex-col gap-3">
+    <h1 class="text-2xl font-bold">
+      {{ props.recipe.title }}
+    </h1>
+    <RecipeTags :recipe="props.recipe" />
+    <img
+      :src="props.recipe.image"
+      class="rounded-2xl w-full h-[300px] object-cover shadow-md"
+    >
+    <div class="flex justify-between items-center gap-4 w-full text-text-primary">
+      <template
+        v-for="item in info"
+        :key="item.label"
       >
-      <div class="flex justify-between items-center gap-4 w-full text-text-primary">
-        <template
-          v-for="item in info"
-          :key="item.label"
+        <div
+          v-if="item.value"
+          class="flex items-center gap-1"
         >
-          <div
-            v-if="item.value"
-            class="flex items-center gap-1"
-          >
-            <ElIcon>
-              <component :is="item.icon" />
-            </ElIcon>
-            <span>{{ item.value }}</span>
-          </div>
-        </template>
-      </div>
+          <ElIcon>
+            <component :is="item.icon" />
+          </ElIcon>
+          <span>{{ item.value }}</span>
+        </div>
+      </template>
     </div>
-    <div class="flex flex-col gap-2 text-text-primary">
-      <h1 class="text-2xl font-bold">
-        {{ props.recipe.title }}
-      </h1>
-      <RecipeTags :recipe="props.recipe" />
-      <p v-html="props.recipe.summary" />
-    </div>
+    <p
+      class="text-text-primary"
+      v-html="props.recipe.summary"
+    />
   </div>
 </template>

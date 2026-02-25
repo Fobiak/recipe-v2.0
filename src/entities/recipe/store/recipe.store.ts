@@ -18,12 +18,12 @@ const DEFAULT_FORM_FILTERS: FormFilters = {
 
 export const useRecipeStore = defineStore('recipe-store', () => {
   const error = ref<unknown | string | null>(null)
-  const isLoading = ref(false)
-  const formFilters = ref(structuredClone(DEFAULT_FORM_FILTERS))
-  const totalResults = ref(0)
-  const recipes = ref<RecipeCardData[]>([])
+  const isLoading = ref<boolean>(false)
+  const formFilters = ref<FormFilters>(structuredClone(DEFAULT_FORM_FILTERS))
+  const totalResults = ref<number>(0)
+  const recipes = ref<RecipeCardData[] | null>(null)
   const recipe = ref<RecipeItem | null>(null)
-  const recipeSimilar = ref<RecipeSimilarCardData[]>([])
+  const recipeSimilar = ref<RecipeSimilarCardData[] | null>(null)
 
   async function getRecipes() {
     isLoading.value = true
@@ -98,8 +98,9 @@ export const useRecipeStore = defineStore('recipe-store', () => {
 
   function resetData() {
     recipe.value = null
-    recipes.value = []
-    recipeSimilar.value = []
+    recipes.value = null
+    recipeSimilar.value = null
+    totalResults.value = 0
   }
 
   return {
